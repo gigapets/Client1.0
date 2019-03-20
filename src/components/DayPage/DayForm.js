@@ -22,7 +22,6 @@ class DayForm extends React.Component {
       sPoints: ""
     };
   }
-
   addDayPost = event => {
     event.preventDefault();
     this.props.addDayPost(event, this.state);

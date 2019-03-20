@@ -20,9 +20,9 @@ class App extends Component {
     console.log('inside Component Did Mount', this.state);
     axios
       .get("https://gigapets.herokuapp.com/gigapets")
-      .then(response => this.setState({dayPosts: response.data}), console.log("Axios state:", this.state))
-      .catch(err => console.log("ComponentDidMount error: ", err));
-  }
+      .then(response => this.setState({dayPosts: response.data}))
+      .catch(err => console.log("ComponentDidMount error: ", err))
+  };
 
   addDayPost = (event, dayPost) => {
     axios
@@ -31,20 +31,23 @@ class App extends Component {
       .catch(err => console.log("Add Day Post Error: ", err));
   };
 
+  // deleteDayPost = (event, id) => {
+  //   event.preventDefault();
+  //   axios
+  //     
+    
+  // };
+
   deleteDayPost = (event, id) => {
     event.preventDefault();
+   
     axios
-      .delete(`https://gigapets.herokuapp.com/gigapets/${id}`)
-      .then(response => {
-        this.setState({ dayPosts: response.data });
-      });
+    .delete(`https://gigapets.herokuapp.com/gigapets/${id}`)
+    .then(response => {
+        this.setState({ dayPosts: response.data })
+          .catch(err => console.log("error:",err));
+    });
   };
-// for its own page
-  // deleteDayPost = (event) => {
-  //   event.preventDefault();
-  //   this.props.deleteMessage(this.state.dayPost);
-  //   axios.delete('https://gigapets.herokuapp.com/gigapets')
-  // };
 
   render() {
     return (
