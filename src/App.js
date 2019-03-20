@@ -29,8 +29,12 @@ class App extends Component {
       .then(response => this.setState({dayPosts: response.data }))
       .catch(err => console.log("Add Day Post Error: ", err));
   };
-
-
+// for its own page
+  // deleteDayPost = (event) => {
+  //   event.preventDefault();
+  //   this.props.deleteMessage(this.state.dayPost);
+  //   axios.delete('https://gigapets.herokuapp.com/gigapets')
+  // };
 
   render() {
     return (
