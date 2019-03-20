@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import './App.css';
 import DayForm from './components/DayPage/DayForm';
+import DayPost from './components/DayPage/DayPost';
 import DayPosts from './components/DayPage/DayPosts';
 import axios from 'axios';
 import {NavLink, Route} from 'react-router-dom';
@@ -13,7 +14,7 @@ class App extends Component {
     this.state = {
       dayPosts: []
     };
-  }
+  } 
 
   componentDidMount(){
     console.log('inside Component Did Mount', this.state);
@@ -29,6 +30,15 @@ class App extends Component {
       .then(response => this.setState({dayPosts: response.data }))
       .catch(err => console.log("Add Day Post Error: ", err));
   };
+
+  deleteDayPost = (event, id) => {
+    event.preventDefault();
+    axios
+      .delete(`https://gigapets.herokuapp.com/gigapets/${id}`)
+      .then(response => {
+        this.setState({ dayPosts: response.data });
+      });
+  };
 // for its own page
   // deleteDayPost = (event) => {
   //   event.preventDefault();
@@ -39,6 +49,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+     
         <ul className="navBar">
           <li>
             <NavLink exact to="/">
@@ -51,16 +62,33 @@ class App extends Component {
         </ul>
         <Route
          exact path="/"
-          render={props => <DayPosts {...props} dayPosts={this.state.dayPosts} />}
+          render={props => <DayPosts {...props}
+            dayPosts= {this.state.dayPosts}
+            handleChanges={this.handleChanges}
+            deleteDayPost={this.deleteDayPost}
+            updateDayPost={this.updateDayPost}
+          />}
         />
         <Route
           exact
           path="/day-form"
           render={props => <DayForm {...props} addDayPost={this.addDayPost} />}
         />
-        <Route
+        {/* <Route
         exact path = "/week"
         render = {props => <DayPosts {...props} dayPosts = {this.state.dayPosts} />}
+        /> */}
+        <Route
+          path="/gigapets/:id"
+          render={props => <DayPost
+            {...props}
+            dayPosts={this.state.dayPosts}
+            handleChanges={this.handleChanges}
+            deleteDayPost={this.deleteDayPost}
+            updateDayPost={this.updateDayPost}
+          />}
+            
+          
         />
       </div>
     );
