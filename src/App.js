@@ -6,6 +6,7 @@ import DayPost from './components/DayPage/DayPost';
 import DayPosts from './components/DayPage/DayPosts';
 import axios from 'axios';
 import {NavLink, Route} from 'react-router-dom';
+import LoginPage from './components/Login/LoginPage';
 
 
 class App extends Component {
@@ -60,8 +61,11 @@ class App extends Component {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/day-form"> Record A Day </NavLink>
+            <NavLink to="/DayForm">
+              Record A Day
+              </NavLink>
           </li>
+     
         </ul>
         <Route
          exact path="/"
@@ -74,7 +78,7 @@ class App extends Component {
         />
         <Route
           exact
-          path="/day-form"
+          path="/DayForm"
           render={props => <DayForm {...props} addDayPost={this.addDayPost} />}
         />
         {/* <Route
@@ -90,9 +94,10 @@ class App extends Component {
             deleteDayPost={this.deleteDayPost}
             updateDayPost={this.updateDayPost}
           />}
-            
+          />
+        
           
-        />
+        
       </div>
     );
   }
